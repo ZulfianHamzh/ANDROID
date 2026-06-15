@@ -1,0 +1,30 @@
+## NEW TABLE: cashier_shifts
+
+### Columns
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `bigint` | Primary Key (auto-increment) |
+| `cashier_id` | `uuid` | Nullable, references auth.users |
+| `branch_id` | `bigint` | Nullable, references branches |
+| `modal_awal` | `integer` | Default 0 |
+| `waktu_buka` | `timestamptz` | Nullable |
+| `waktu_tutup` | `timestamptz` | Nullable |
+| `tanggal` | `date` | Default CURRENT_DATE |
+| `created_at` | `timestamptz` | Default NOW() |
+| `updated_at` | `timestamptz` | Default NOW() |
+
+### Indexes
+- `idx_cashier_shifts_tanggal` on `tanggal`
+- `idx_cashier_shifts_cashier` on `cashier_id`
+
+### RLS Policies
+- SELECT: All authenticated users
+- INSERT: Authenticated users
+- UPDATE: Only own shifts (cashier_id = auth.uid())
+
+### Trigger
+- `on_cashier_shifts_updated` — auto-update `updated_at`
+
+### View: products_sold_per_day
+Columns: tanggal, product_id, product_name, is_home_visit, total_qty, total_amount
+Filters: completed transactions only

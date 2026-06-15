@@ -1,0 +1,383 @@
+UPDATED DB SCHEMA:
+## Table `branches`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `name` | `text` |  |
+| `address` | `text` |  Nullable |
+| `phone` | `text` |  Nullable |
+| `is_active` | `bool` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+| `updated_at` | `timestamptz` |  Nullable |
+
+## Table `user_roles`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `name` | `text` |  Unique |
+| `description` | `text` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+
+## Table `user_profiles`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `username` | `text` |  Unique |
+| `full_name` | `text` |  |
+| `role_id` | `int8` |  |
+| `branch_id` | `int8` |  Nullable |
+| 'fingerprints' | 'text' |  Nullable |
+| `is_active` | `bool` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+| `updated_at` | `timestamptz` |  Nullable |
+
+## Table `product_categories`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `name` | `text` |  Unique |
+| `description` | `text` |  Nullable |
+| `is_active` | `bool` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+| `updated_at` | `timestamptz` |  Nullable |
+
+## Table `products`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `item_no` | `int4` |  Nullable Unique |
+| `category_id` | `int8` |  Nullable |
+| `category` | `text` |  Nullable |
+| `name` | `text` |  |
+| `description` | `text` |  Nullable |
+| `price_clinic` | `int4` |  |
+| `price_home_visit` | `int4` |  Nullable |
+| `image_url` | `text` |  Nullable |
+| `is_active` | `bool` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+| `updated_at` | `timestamptz` |  Nullable |
+
+## Table `product_variants`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `product_id` | `int8` |  Nullable |
+| `name` | `text` |  |
+| `price_adjustment` | `int4` |  Nullable |
+| `stock` | `int4` |  Nullable |
+| `is_active` | `bool` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+| `updated_at` | `timestamptz` |  Nullable |
+
+## Table `customers`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `name` | `text` |  |
+| `phone` | `text` |  Nullable |
+| `address` | `text` |  Nullable |
+| `total_visits` | `int4` |  Nullable |
+| `total_spent` | `int8` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+| `updated_at` | `timestamptz` |  Nullable |
+
+## Table `transactions`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `order_no` | `int4` |  |
+| `branch_id` | `int8` |  Nullable |
+| `cashier_id` | `uuid` |  Nullable |
+| `customer_id` | `int8` |  Nullable |
+| `customer_name` | `text` |  Nullable |
+| `total_amount` | `int4` |  |
+| `amount_paid` | `int4` |  |
+| `change_amount` | `int4` |  Nullable |
+| `payment_method` | `text` |  |
+| `status` | `text` |  |
+| `notes` | `text` |  Nullable |
+| `print_status` | `text` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+| `updated_at` | `timestamptz` |  Nullable |
+
+## Table `transaction_items`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `transaction_id` | `int8` |  Nullable |
+| `product_id` | `int8` |  Nullable |
+| `product_name` | `text` |  |
+| `quantity` | `int4` |  |
+| `unit_price` | `int4` |  |
+| `total_price` | `int4` |  |
+| `is_home_visit` | `bool` |  Nullable |
+| `notes` | `text` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+
+## Table `split_payments`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `transaction_id` | `int8` |  Nullable |
+| `payment_method` | `text` |  |
+| `amount` | `int4` |  |
+| `created_at` | `timestamptz` |  Nullable |
+
+## Table `held_orders`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `branch_id` | `int8` |  Nullable |
+| `cashier_id` | `uuid` |  Nullable |
+| `items` | `jsonb` |  |
+| `notes` | `text` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+| `updated_at` | `timestamptz` |  Nullable |
+| `customer_name` | `text` |  Nullable |
+| `hold_order_status` | `text` |  |
+
+## Table `refunds`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `transaction_id` | `int8` |  Nullable |
+| `cashier_id` | `uuid` |  Nullable |
+| `reason` | `text` |  |
+| `refund_amount` | `int4` |  |
+| `refund_method` | `text` |  |
+| `created_at` | `timestamptz` |  Nullable |
+
+## Table `inventory_movements`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `product_id` | `int8` |  Nullable |
+| `quantity_change` | `int4` |  |
+| `movement_type` | `text` |  |
+| `reference_id` | `int8` |  Nullable |
+| `notes` | `text` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+
+## Table `daily_summaries`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `branch_id` | `int8` |  Nullable |
+| `date` | `date` |  |
+| `total_transactions` | `int4` |  Nullable |
+| `total_revenue` | `int8` |  Nullable |
+| `total_cash` | `int8` |  Nullable |
+| `total_debit` | `int8` |  Nullable |
+| `total_credit` | `int8` |  Nullable |
+| `total_qris` | `int8` |  Nullable |
+| `total_e_wallet` | `int8` |  Nullable |
+| `total_refunds` | `int8` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+| `updated_at` | `timestamptz` |  Nullable |
+
+## Table `activity_logs`
+
+### Columns
+
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `int8` | Primary |
+| `user_id` | `uuid` |  Nullable |
+| `action` | `text` |  |
+| `details` | `jsonb` |  Nullable |
+| `ip_address` | `text` |  Nullable |
+| `created_at` | `timestamptz` |  Nullable |
+
+
+Functions:
+generate_daily_summary
+
+BEGIN
+  INSERT INTO daily_summaries (branch_id, date, total_transactions, total_revenue,
+    total_cash, total_debit, total_credit, total_qris, total_e_wallet, total_refunds)
+  SELECT
+    t.branch_id,
+    target_date,
+    COUNT(DISTINCT t.id) AS total_transactions,
+    COALESCE(SUM(t.total_amount), 0) AS total_revenue,
+    COALESCE(SUM(CASE WHEN t.payment_method = 'cash' THEN t.amount_paid ELSE 0 END), 0) AS total_cash,
+    COALESCE(SUM(CASE WHEN t.payment_method = 'debit' THEN t.amount_paid ELSE 0 END), 0) AS total_debit,
+    COALESCE(SUM(CASE WHEN t.payment_method = 'credit' THEN t.amount_paid ELSE 0 END), 0) AS total_credit,
+    COALESCE(SUM(CASE WHEN t.payment_method = 'qris' THEN t.amount_paid ELSE 0 END), 0) AS total_qris,
+    COALESCE(SUM(CASE WHEN t.payment_method = 'e_wallet' THEN t.amount_paid ELSE 0 END), 0) AS total_e_wallet,
+    COALESCE((SELECT SUM(refund_amount) FROM refunds r JOIN transactions t2 ON r.transaction_id = t2.id WHERE DATE(t2.created_at) = target_date), 0) AS total_refunds
+  FROM transactions t
+  WHERE DATE(t.created_at) = target_date AND t.status = 'completed'
+  GROUP BY t.branch_id
+  ON CONFLICT (branch_id, date)
+  DO UPDATE SET
+    total_transactions = EXCLUDED.total_transactions,
+    total_revenue = EXCLUDED.total_revenue,
+    total_cash = EXCLUDED.total_cash,
+    total_debit = EXCLUDED.total_debit,
+    total_credit = EXCLUDED.total_credit,
+    total_qris = EXCLUDED.total_qris,
+    total_e_wallet = EXCLUDED.total_e_wallet,
+    total_refunds = EXCLUDED.total_refunds;
+END;
+
+target_date date DEFAULT CURRENT_DATE
+
+void
+
+Invoker
+
+
+
+handle_new_user
+–
+BEGIN
+  INSERT INTO public.user_profiles (id, username, full_name, role_id, is_active)
+  VALUES (
+    NEW.id,
+    COALESCE(NEW.raw_user_meta_data ->> 'username', split_part(NEW.email, '@', 1)),
+    COALESCE(
+      NEW.raw_user_meta_data ->> 'display_name',
+      NEW.raw_user_meta_data ->> 'name',
+      split_part(NEW.email, '@', 1)
+    ),
+    COALESCE(
+      (SELECT ur.id FROM public.user_roles ur WHERE ur.name = COALESCE(NEW.raw_user_meta_data ->> 'role', 'kasir') LIMIT 1),
+      (SELECT ur.id FROM public.user_roles ur WHERE ur.name = 'kasir' LIMIT 1)
+    ),
+    true
+  )
+  ON CONFLICT (id) DO UPDATE
+  SET
+    username = EXCLUDED.username,
+    full_name = EXCLUDED.full_name,
+    role_id = EXCLUDED.role_id,
+    is_active = EXCLUDED.is_active,
+    updated_at = now();
+
+  RETURN NEW;
+END;
+
+trigger	
+Definer
+
+
+
+log_refund_insert
+–
+
+BEGIN
+  INSERT INTO public.activity_logs (user_id, action, details)
+  VALUES (
+    NEW.cashier_id,
+    'refund_baru',
+    jsonb_build_object('transaction_id', NEW.transaction_id, 'amount', NEW.refund_amount, 'reason', NEW.reason)
+  );
+  RETURN NEW;
+END;
+
+trigger	
+Definer
+
+
+
+log_transaction_insert
+–
+
+BEGIN
+  INSERT INTO public.activity_logs (user_id, action, details)
+  VALUES (
+    NEW.cashier_id,
+    'transaksi_baru',
+    jsonb_build_object('order_no', NEW.order_no, 'total', NEW.total_amount, 'payment', NEW.payment_method)
+  );
+  RETURN NEW;
+END;
+
+trigger	
+Definer
+
+
+
+update_updated_at_column
+–
+
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+
+trigger	
+Invoker
+
+Database Triggers:
+Name	Table	Function	Events	Orientation	Enabled	
+
+on_refund_insert
+refunds
+log_refund_insert
+AFTER INSERT
+ROW
+
+
+
+on_transaction_insert
+transactions
+log_transaction_insert
+AFTER INSERT
+ROW
+
+
+
+User
+activity_logs
+handle_new_user
+AFTER UPDATE
+AFTER DELETE
+AFTER INSERT
+ROW
+
+
+
