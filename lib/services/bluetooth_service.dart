@@ -29,6 +29,7 @@ class BluetoothService {
   BluetoothConnection? _connection;
   StreamSubscription? _discoverySubscription;
   StreamSubscription? _connectionStatusSubscription;
+  Timer? _reconnectTimer;
   
   bool _isEnabled = false;
   bool _isConnected = false;
@@ -36,6 +37,12 @@ class BluetoothService {
   final List<BluetoothPrinterDevice> _pairedDevices = [];
   final _statusController = StreamController<bool>.broadcast();
   final _devicesController = StreamController<List<BluetoothPrinterDevice>>.broadcast();
+
+  // Auto-connect MAC addresses for DHBH printers
+  static const List<String> _autoConnectAddresses = [
+    '66:12:3F:23:EF:92',
+    '66:22:0E:80:81:CC',
+  ];
 
   Stream<bool> get statusStream => _statusController.stream;
   Stream<List<BluetoothPrinterDevice>> get devicesStream => _devicesController.stream;
@@ -54,7 +61,7 @@ class BluetoothService {
     return !Platform.isWindows;
   }
 
-  /// Initialize Bluetooth service
+  /// Initialize Bluetooth service with auto-connect to known printers
   Future<void> initialize() async {
     if (!isSupported) {
       debugPrint('[Bluetooth] ⚠️ Bluetooth printing is not supported on this platform (Windows)');
@@ -75,12 +82,56 @@ class BluetoothService {
       _bluetooth.onStateChanged().listen((state) {
         _isEnabled = state == BluetoothState.STATE_ON;
         debugPrint('[Bluetooth] State changed: ${_isEnabled ? 'ON' : 'OFF'}');
+        
+        // Auto-reconnect when Bluetooth is turned back on
+        if (_isEnabled && !_isConnected) {
+          debugPrint('[Bluetooth] Bluetooth enabled, attempting auto-connect...');
+          _tryAutoConnect();
+        }
+        
         _statusController.add(_isConnected);
       });
+      
+      // Get paired devices and attempt auto-connect
+      await getPairedDevices();
+      await _tryAutoConnect();
     } catch (e) {
       debugPrint('[Bluetooth] Init error: $e');
       _statusController.add(false);
     }
+  }
+
+  /// Try to auto-connect to known printer MAC addresses
+  Future<void> _tryAutoConnect() async {
+    if (_isConnected) {
+      debugPrint('[Bluetooth] Already connected, skipping auto-connect');
+      return;
+    }
+
+    debugPrint('[Bluetooth] Attempting auto-connect to known printers...');
+    
+    for (final address in _autoConnectAddresses) {
+      debugPrint('[Bluetooth] Checking device: $address');
+      
+      // Check if this device is in paired devices
+      final pairedDevice = _pairedDevices.firstWhere(
+        (d) => d.address.toUpperCase() == address.toUpperCase(),
+        orElse: () => BluetoothPrinterDevice(name: '', address: ''),
+      );
+      
+      if (pairedDevice.address.isNotEmpty) {
+        debugPrint('[Bluetooth] Found paired device: ${pairedDevice.name} ($address)');
+        final success = await connect(address);
+        if (success) {
+          debugPrint('[Bluetooth] ✓ Auto-connected to ${pairedDevice.name}');
+          return;
+        }
+      } else {
+        debugPrint('[Bluetooth] Device $address not found in paired devices');
+      }
+    }
+    
+    debugPrint('[Bluetooth] Auto-connect failed - no known printers available');
   }
 
   /// Get paired devices
@@ -205,6 +256,7 @@ class BluetoothService {
 
   /// Cleanup
   void dispose() {
+    _reconnectTimer?.cancel();
     _statusController.close();
     _devicesController.close();
     _discoverySubscription?.cancel();
