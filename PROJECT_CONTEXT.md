@@ -14,9 +14,9 @@
 - **Current Status:** **MVP / Active Development** — Core POS flow is functional. The v3.0 simplification removed the offline-first architecture; the app is now **online-only** (Supabase is the single source of truth, SQLite is used for manual backup only).
 - **Per-branch pricing (v3.x feature):** ✅ **IMPLEMENTED** in Flutter (see §4a) — the previous "NOT implemented" note in older revisions is **stale**.
 - **Windows desktop is the primary target** — full Windows printing support exists via the `printing` package (see §4c).
-- **Android tablet support** — Optimized for 1280x800 resolution tablets with 2GB RAM (see §2.1 and §4d). Includes memory management, responsive UI scaling, and Android-specific configurations.
+- **Android tablet support** — Optimized for 1280x800 resolution tablets with 2GB RAM (see §2.1 and §4d). Includes memory management, responsive UI scaling, and Android-specific configurations. **Bluetooth auto-connect** to paired devices (MAC: `66:12:3f:23:ef:92` and `66:22:0E:80:81:CC`) with print layout matching Windows format exactly.
 - **Package ID:** `com.dhbh.dhbh_app`
-- **Version:** `1.0.0+1` (Windows), `1.1.0+1` (Android branch)
+- **Version:** `1.0.0+1` (Windows), `1.2.0+1` (Android branch with Bluetooth auto-connect)
 - **Supabase Project:** `jiunlvlcwsntjbyybszd.supabase.co`
 
 ---
@@ -323,6 +323,8 @@ enum UserRole { admin, kasir }                                       // NO karya
 | **Android Config** | Hardware acceleration, `resizeableActivity`, leanback support | Multi-window support and better performance |
 | **Resource Limiting** | Density restrictions (hdpi), limited resource variants | Reduced APK size and memory footprint |
 | **Performance** | Limited image cache, simplified skeleton animations | Smoother UI on low-RAM devices |
+| **Bluetooth Auto-Connect** | Auto-connect to MAC `66:12:3f:23:ef:92` and `66:22:0E:80:81:CC` on startup | Seamless printer connection without manual pairing |
+| **Print Layout** | ESC/POS receipt format matching Windows print layout exactly | Consistent receipt appearance across platforms |
 
 ### Files Modified
 
@@ -331,6 +333,8 @@ enum UserRole { admin, kasir }                                       // NO karya
 - `android/app/build.gradle.kts` — Resource density restrictions
 - `lib/main.dart` — Memory pressure handlers
 - `lib/screens/login_screen.dart`, `lib/screens/pos_screen.dart` — Tablet-specific layouts
+- `lib/services/bluetooth_service.dart` — Bluetooth auto-connect logic for specific MAC addresses
+- `lib/services/thermal_printer_service.dart` — Print layout matching Windows format
 
 ### Build Command
 

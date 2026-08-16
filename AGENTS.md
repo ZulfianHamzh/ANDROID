@@ -12,6 +12,12 @@ Windows desktop adalah target utama (printing via `printing` package); Android/i
 
 ## Recent Updates
 
+- **2026-08-15 — Android Branch: Bluetooth Auto-Connect & Print Layout Parity**:
+  1) **Bluetooth Auto-Connect**: Implementasi auto-connect ke dua device Bluetooth dengan MAC address `66:12:3f:23:ef:92` dan `66:22:0E:80:81:CC`. Aplikasi akan otomatis connect ke device yang sudah paired saat startup, dan reconnect saat Bluetooth di-enable ulang.
+  2) **Print Layout Parity**: Format struk ESC/POS di Android disesuaikan agar identik dengan Windows print layout — header DHBH, detail transaksi, daftar produk, total, pembayaran, kembalian, footer timestamp. Semua section dan formatting (bold, alignment, line breaks) sekarang konsisten antar platform.
+  3) **Printer Service**: `ThermalPrinterService.generateReceipt()` menggunakan template yang sama dengan `WindowsBluetoothPrinterService.printReceipt()` untuk memastikan output identik.
+  - Version Android branch diupdate ke `1.2.0+1`. Dokumentasi di `PROJECT_CONTEXT.md` diperbarui.
+
 - **2026-08-15 — Android Branch: Optimasi untuk tablet Android (2GB RAM, 1280x800)**:
   1) **UI Scaling**: Breakpoint responsive disesuaikan (800px untuk deteksi tablet), peningkatan ukuran font/icon/tombol untuk target sentuhan yang lebih baik pada layar tablet.
   2) **Memory Management**: Penambahan handler memory pressure, flag `largeHeap` di AndroidManifest, dan pembersihan cache gambar saat tekanan memori tinggi.

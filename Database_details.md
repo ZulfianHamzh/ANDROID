@@ -3,7 +3,9 @@
 > **Sumber data:** Live query ke Supabase via Management API (PostgREST / SQL) — *project `jiunlvlcwsntjbyybszd`*
 > **Tanggal ekstraksi:** 2026-08-14 · **Update terakhir:** 2026-08-15 (kolom `daily_summaries.total_transfer` + fungsi `generate_daily_summary` ditulis ulang) · **Status project:** `ACTIVE_HEALTHY`
 > **Dokumen ini adalah referensi skema database AKTUAL** di Supabase (bukan inferensi dari kode).
-> **Android Branch:** 2026-08-15 — Optimasi untuk tablet Android (2GB RAM, 1280x800) tidak memerlukan perubahan database.
+> **Android Branch Updates:** 
+> - 2026-08-15: Optimasi untuk tablet Android (2GB RAM, 1280x800) tidak memerlukan perubahan database.
+> - 2026-08-15: Bluetooth auto-connect (MAC: `66:12:3f:23:ef:92`, `66:22:0E:80:81:CC`) dan print layout parity dengan Windows — tidak ada perubahan schema.
 
 ---
 
