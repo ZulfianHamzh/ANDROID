@@ -5,16 +5,26 @@ class CartItem {
   int quantity;
   String? notes;
   final bool isHomeVisit;
+  final int? branchId;
 
   CartItem({
     required this.product,
     this.quantity = 1,
     this.notes,
     this.isHomeVisit = false,
+    this.branchId,
   });
 
-  int get unitPrice =>
-      isHomeVisit ? (product.priceHomeVisit ?? product.priceClinic) : product.priceClinic;
+  int get unitPrice {
+    if (branchId != null) {
+      return isHomeVisit
+          ? product.getEffectivePriceHomeVisit(branchId!)
+          : product.getEffectivePriceClinic(branchId!);
+    }
+    return isHomeVisit
+        ? (product.priceHomeVisit ?? product.priceClinic)
+        : product.priceClinic;
+  }
 
   int get totalPrice => unitPrice * quantity;
 

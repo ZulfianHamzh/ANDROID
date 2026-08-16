@@ -1,3 +1,5 @@
+import 'product_branch_price.dart';
+
 class Product {
   final int id;
   final int? itemNo;
@@ -7,6 +9,7 @@ class Product {
   final bool isActive;
   final String category;
   final String? imageUrl;
+  final List<ProductBranchPrice> branchPrices;
 
   Product({
     required this.id,
@@ -17,6 +20,7 @@ class Product {
     this.isActive = true,
     this.category = '',
     this.imageUrl,
+    this.branchPrices = const [],
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -29,6 +33,9 @@ class Product {
       isActive: json['is_active'] as bool? ?? true,
       category: json['category'] as String? ?? '',
       imageUrl: json['image_url'] as String?,
+      branchPrices: (json['branch_prices'] as List<dynamic>?)
+          ?.map((e) => ProductBranchPrice.fromJson(e as Map<String, dynamic>))
+          .toList() ?? [],
     );
   }
 
@@ -52,6 +59,7 @@ class Product {
     bool? isActive,
     String? category,
     String? imageUrl,
+    List<ProductBranchPrice>? branchPrices,
   }) {
     return Product(
       id: id ?? this.id,
@@ -62,6 +70,21 @@ class Product {
       isActive: isActive ?? this.isActive,
       category: category ?? this.category,
       imageUrl: imageUrl ?? this.imageUrl,
+      branchPrices: branchPrices ?? this.branchPrices,
     );
+  }
+
+  int getEffectivePriceClinic(int branchId) {
+    final bp = branchPrices.where((p) => p.branchId == branchId).toList();
+    return bp.isNotEmpty && bp.first.priceClinic != null
+        ? bp.first.priceClinic!
+        : priceClinic;
+  }
+
+  int getEffectivePriceHomeVisit(int branchId) {
+    final bp = branchPrices.where((p) => p.branchId == branchId).toList();
+    return bp.isNotEmpty && bp.first.priceHomeVisit != null
+        ? bp.first.priceHomeVisit!
+        : (priceHomeVisit ?? priceClinic);
   }
 }

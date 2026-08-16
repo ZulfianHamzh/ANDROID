@@ -1,0 +1,255 @@
+The Dart VM service is listening on http://127.0.0.1:49402/8BQ0zFqGEJs=/
+[Bluetooth] ⚠️ Bluetooth printing is not supported on this platform (Windows)
+[DHBH] ✓ Bluetooth service initialized
+[HTTP] ✓ Global HTTP client configured with 5-second connection timeout
+supabase.supabase_flutter: INFO: ***** Supabase init completed ***** 
+[DHBH] ✓ Supabase initialized successfully
+[DHBH Provider] SupabaseClient obtained successfully
+[DHBH Provider] checkSession: skipped (auto-logout on restart)
+[Connectivity] Status changed: ONLINE
+[DHBH Provider] login: email=admin@admin.com
+[Repo:Auth] login: admin@admin.com
+[DHBH Supabase] signIn: email=admin@admin.com
+[DHBH Supabase] signIn: Step 1: Checking network connectivity...
+[Network] isOnline: true
+[DHBH Supabase] signIn: ✓ Network connectivity OK
+[DHBH Supabase] signIn: Step 2: Checking DNS resolution...
+[Network] DNS check: Attempting to resolve jiunlvlcwsntjbyybszd.supabase.co...
+[Network] DNS OK: Resolved jiunlvlcwsntjbyybszd.supabase.co to 104.18.38.10
+[DHBH Supabase] signIn: ✓ DNS resolution OK
+[DHBH Supabase] signIn: Step 3: Attempting authentication...
+[HTTP] ✓ Global HTTP client configured with 5-second connection timeout
+[DHBH Supabase] signIn SUCCESS: uid=697aaa8b-e4fa-41dc-963d-bd143ea210c9
+[DHBH Supabase] fetchUserProfile: uid=697aaa8b-e4fa-41dc-963d-bd143ea210c9
+[DHBH Supabase] fetchUserProfile SUCCESS: username=admin, role=admin, branch=DHBH Cabang Kranggan
+[DHBH Provider] login SUCCESS: Admin (admin)
+[DHBH Supabase] logActivity: action=login
+[WinPrinter] printer ready: true (3 printer(s))
+[DHBH Provider] ════════════════ loadProducts ════════════════
+[Repo:Product] getProducts
+[DHBH Supabase] fetchProducts
+[DHBH Supabase] fetchProducts SUCCESS: count=24
+[DHBH Supabase] fetchProducts item: id=24, name=Herbal Pembangkit Energi, category=Herbal
+[DHBH Supabase] fetchProducts item: id=23, name=Herbal Kapsul BSA, category=Herbal
+[DHBH Supabase] fetchProducts item: id=22, name=Akupunktur, category=Terapi
+[DHBH Supabase] fetchProducts item: id=21, name=Lulur, category=Perawatan
+[DHBH Supabase] fetchProducts item: id=20, name=Totok Wajah, category=Perawatan
+[DHBH Supabase] fetchProducts item: id=19, name=Totok Syaraf Cinta & Rendam Kaki, category=Terapi
+[DHBH Supabase] fetchProducts item: id=18, name=Pijat Kretek (Kiropraktik/Chiropraktik), category=Terapi
+[DHBH Supabase] fetchProducts item: id=17, name=Pijat Syaraf Stroke, category=Terapi
+[DHBH Supabase] fetchProducts item: id=16, name=Pijat Syaraf & Rendam Kaki/ Pengobatan, category=Terapi
+[DHBH Supabase] fetchProducts item: id=15, name=Pijat Urut Dewasa & Rendam Kaki, category=Terapi
+[DHBH Supabase] fetchProducts item: id=14, name=Pijat Urut Anak, category=Terapi
+[DHBH Supabase] fetchProducts item: id=13, name=Refleksi & Rendam Kaki, category=Terapi
+[DHBH Supabase] fetchProducts item: id=12, name=Gurah Telinga, category=Terapi
+[DHBH Supabase] fetchProducts item: id=11, name=Gurah Mata, category=Terapi
+[DHBH Supabase] fetchProducts item: id=10, name=Gurah Hidung, category=Terapi
+[DHBH Supabase] fetchProducts item: id=9, name=Pengobatan Holystik (Pijit Syaraf, Bekam & Refleksi), category=Terapi
+[DHBH Supabase] fetchProducts item: id=8, name=Bekam Basah 33 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=7, name=Bekam Basah 23 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=6, name=Bekam Basah 21 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=5, name=Bekam Basah 19 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=4, name=Bekam Basah 11 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=3, name=Bekam Kepala Per-Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=2, name=Bekam Kering Per-Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=1, name=Bekam Basah Per-Titik, category=Bekam
+[DHBH Provider] Products loaded: 24
+[Repo:Transaction] getTransactions
+[DHBH Supabase] fetchTransactions
+[DHBH Supabase] fetchTransactions SUCCESS: count=17
+[DHBH Provider] Transactions loaded: 17
+[Repo:HeldOrder] getHeldOrders
+[DHBH Supabase] fetchHeldOrders
+[DHBH Supabase] fetchHeldOrders SUCCESS: count=0
+[DHBH Provider] HeldOrders loaded: 0
+[WinPrinter] printer ready: true (3 printer(s))
+[DHBH Supabase] fetchCustomers
+[DHBH Provider] completeTransaction: total=110000, method=qris
+[Repo:Transaction] saveTransaction: total=110000
+[DHBH Supabase] saveTransaction: total=110000
+[DHBH Supabase] getNextOrderNo
+[DHBH Supabase] getNextOrderNo: next=18
+[DHBH Supabase] saveTransaction CREATED: id=24, order_no=18
+[DHBH Supabase] saveTransaction ITEMS SAVED: count=1
+[DHBH Supabase] saveTransaction COMPLETE
+[Repo:Transaction] ✓ Transaction saved to Supabase
+[DHBH Provider] cart cleared, 18 total transactions
+[WinPrinter] printer ready: true (3 printer(s))
+[DHBH Provider] auto-print (Windows): printing receipt...
+[WinPrinter] printTransaction: id=e86f306e-016c-4e75-9e98-ce768b4d9616, orderNo=null
+Helvetica-Bold has no Unicode support see https://github.com/DavBfr/dart_pdf/wiki/Fonts-Management
+Helvetica has no Unicode support see https://github.com/DavBfr/dart_pdf/wiki/Fonts-Management
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+Unable to find a font to draw "─" (U+2500) try to provide a TextStyle.fontFallback
+[WinPrinter] ✓ printed: Struk-e86f306e-016c-4e75-9e98-ce768b4d9616 (ok=true)
+[DHBH Provider] auto-print (Windows) SUCCESS
+[WinPrinter] printer ready: true (3 printer(s))
+[DHBH Provider] ════════════════ loadProducts ════════════════
+[Repo:Product] getProducts
+[DHBH Supabase] fetchProducts
+[DHBH Supabase] fetchProducts SUCCESS: count=24
+[DHBH Supabase] fetchProducts item: id=24, name=Herbal Pembangkit Energi, category=Herbal
+[DHBH Supabase] fetchProducts item: id=23, name=Herbal Kapsul BSA, category=Herbal
+[DHBH Supabase] fetchProducts item: id=22, name=Akupunktur, category=Terapi
+[DHBH Supabase] fetchProducts item: id=21, name=Lulur, category=Perawatan
+[DHBH Supabase] fetchProducts item: id=20, name=Totok Wajah, category=Perawatan
+[DHBH Supabase] fetchProducts item: id=19, name=Totok Syaraf Cinta & Rendam Kaki, category=Terapi
+[DHBH Supabase] fetchProducts item: id=18, name=Pijat Kretek (Kiropraktik/Chiropraktik), category=Terapi
+[DHBH Supabase] fetchProducts item: id=17, name=Pijat Syaraf Stroke, category=Terapi
+[DHBH Supabase] fetchProducts item: id=16, name=Pijat Syaraf & Rendam Kaki/ Pengobatan, category=Terapi
+[DHBH Supabase] fetchProducts item: id=15, name=Pijat Urut Dewasa & Rendam Kaki, category=Terapi
+[DHBH Supabase] fetchProducts item: id=14, name=Pijat Urut Anak, category=Terapi
+[DHBH Supabase] fetchProducts item: id=13, name=Refleksi & Rendam Kaki, category=Terapi
+[DHBH Supabase] fetchProducts item: id=12, name=Gurah Telinga, category=Terapi
+[DHBH Supabase] fetchProducts item: id=11, name=Gurah Mata, category=Terapi
+[DHBH Supabase] fetchProducts item: id=10, name=Gurah Hidung, category=Terapi
+[DHBH Supabase] fetchProducts item: id=9, name=Pengobatan Holystik (Pijit Syaraf, Bekam & Refleksi), category=Terapi
+[DHBH Supabase] fetchProducts item: id=8, name=Bekam Basah 33 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=7, name=Bekam Basah 23 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=6, name=Bekam Basah 21 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=5, name=Bekam Basah 19 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=4, name=Bekam Basah 11 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=3, name=Bekam Kepala Per-Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=2, name=Bekam Kering Per-Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=1, name=Bekam Basah Per-Titik, category=Bekam
+[DHBH Provider] Products loaded: 24
+[Repo:Transaction] getTransactions
+[DHBH Supabase] fetchTransactions
+[DHBH Supabase] fetchTransactions SUCCESS: count=18
+[DHBH Provider] Transactions loaded: 18
+[Repo:HeldOrder] getHeldOrders
+[DHBH Supabase] fetchHeldOrders
+[DHBH Supabase] fetchHeldOrders SUCCESS: count=0
+[DHBH Provider] HeldOrders loaded: 0
+[DHBH Provider] ════════════════ loadProducts ════════════════
+[Repo:Product] getProducts
+[DHBH Supabase] fetchProducts
+[DHBH Supabase] fetchProducts SUCCESS: count=24
+[DHBH Supabase] fetchProducts item: id=24, name=Herbal Pembangkit Energi, category=Herbal
+[DHBH Supabase] fetchProducts item: id=23, name=Herbal Kapsul BSA, category=Herbal
+[DHBH Supabase] fetchProducts item: id=22, name=Akupunktur, category=Terapi
+[DHBH Supabase] fetchProducts item: id=21, name=Lulur, category=Perawatan
+[DHBH Supabase] fetchProducts item: id=20, name=Totok Wajah, category=Perawatan
+[DHBH Supabase] fetchProducts item: id=19, name=Totok Syaraf Cinta & Rendam Kaki, category=Terapi
+[DHBH Supabase] fetchProducts item: id=18, name=Pijat Kretek (Kiropraktik/Chiropraktik), category=Terapi
+[DHBH Supabase] fetchProducts item: id=17, name=Pijat Syaraf Stroke, category=Terapi
+[DHBH Supabase] fetchProducts item: id=16, name=Pijat Syaraf & Rendam Kaki/ Pengobatan, category=Terapi
+[DHBH Supabase] fetchProducts item: id=15, name=Pijat Urut Dewasa & Rendam Kaki, category=Terapi
+[DHBH Supabase] fetchProducts item: id=14, name=Pijat Urut Anak, category=Terapi
+[DHBH Supabase] fetchProducts item: id=13, name=Refleksi & Rendam Kaki, category=Terapi
+[DHBH Supabase] fetchProducts item: id=12, name=Gurah Telinga, category=Terapi
+[DHBH Supabase] fetchProducts item: id=11, name=Gurah Mata, category=Terapi
+[DHBH Supabase] fetchProducts item: id=10, name=Gurah Hidung, category=Terapi
+[DHBH Supabase] fetchProducts item: id=9, name=Pengobatan Holystik (Pijit Syaraf, Bekam & Refleksi), category=Terapi
+[DHBH Supabase] fetchProducts item: id=8, name=Bekam Basah 33 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=7, name=Bekam Basah 23 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=6, name=Bekam Basah 21 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=5, name=Bekam Basah 19 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=4, name=Bekam Basah 11 Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=3, name=Bekam Kepala Per-Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=2, name=Bekam Kering Per-Titik, category=Bekam
+[DHBH Supabase] fetchProducts item: id=1, name=Bekam Basah Per-Titik, category=Bekam
+[DHBH Provider] Products loaded: 24
+[Repo:Transaction] getTransactions
+[DHBH Supabase] fetchTransactions
+[DHBH Supabase] fetchTransactions SUCCESS: count=18
+[DHBH Provider] Transactions loaded: 18
+[Repo:HeldOrder] getHeldOrders
+[DHBH Supabase] fetchHeldOrders
+[DHBH Supabase] fetchHeldOrders SUCCESS: count=0
+[DHBH Provider] HeldOrders loaded: 0
+[WinPrinter] printer ready: true (3 printer(s))
+[Bluetooth] ⚠️ Bluetooth printing is not supported on this platform (Windows)
+[Bluetooth] Bluetooth printing is not supported on this platform
+[Bluetooth] ⚠️ Bluetooth printing is not supported on this platform (Windows)
+[Bluetooth Provider] Service initialized
+[Bluetooth] Bluetooth printing is not supported on this platform
+[WinPrinter] printer ready: true (3 printer(s))
+[DHBH Provider] logout
+[DHBH Supabase] signOut
+supabase.auth: INFO: Signing out user with scope: SignOutScope.local 
+[HTTP] ✓ Global HTTP client configured with 5-second connection timeout
+[DHBH Supabase] signOut DONE
+[DHBH Provider] logout DONE

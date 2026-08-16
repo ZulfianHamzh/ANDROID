@@ -4,6 +4,9 @@
 .dart_tool/
 .packages
 build/
+
+# Generated Windows installer binaries (keep the .iss script tracked)
+installer/Output/
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
 

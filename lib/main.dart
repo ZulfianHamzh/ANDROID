@@ -11,7 +11,6 @@ import 'screens/login_screen.dart';
 import 'screens/main_app_screen.dart';
 import 'utils/app_theme.dart';
 import 'services/bluetooth_service.dart';
-import 'services/local_database_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,23 +18,38 @@ void main() async {
   // CRITICAL: Configure global HTTP client with aggressive timeouts
   HttpOverrides.global = _CustomHttpOverrides();
   
-  // Set up error handling for uncaught exceptions
+  // Set up error handling for uncaught exceptions — log to console AND to a
+  // file (%TEMP%\dhbh_flutter_errors.log) so layout/overflow errors can be
+  // inspected later even when the console buffer has scrolled.
   FlutterError.onError = (FlutterErrorDetails details) {
     debugPrintStack(
       label: '[DHBH] Flutter Error: ${details.exception}',
       stackTrace: details.stack,
     );
+    try {
+      final message = StringBuffer()
+        ..writeln('==== ${DateTime.now().toIso8601String()} ====')
+        ..writeln(details.exception)
+        ..writeln('Context: ${details.context}');
+      final info = details.informationCollector;
+      if (info != null) {
+        try {
+          final nodes = info();
+          for (final n in nodes) {
+            message.writeln(n.toStringDeep());
+          }
+        } catch (_) {}
+      }
+      message.writeln(details.stack ?? '');
+      message.writeln();
+      final dir = Directory.systemTemp;
+      final f = File('${dir.path}${Platform.pathSeparator}dhbh_flutter_errors.log');
+      f.writeAsStringSync(message.toString(), mode: FileMode.append);
+    } catch (_) {
+      // never let logging break the app
+    }
   };
 
-  // Initialize local database early
-  try {
-    final localDB = LocalDatabaseService();
-    await localDB.database.timeout(const Duration(seconds: 3));
-    debugPrint('[DHBH] ✓ Local database initialized');
-  } catch (e) {
-    debugPrint('[DHBH] ⚠️ Local DB init (non-critical): $e');
-  }
-  
   // Initialize Bluetooth service early
   final btService = BluetoothService();
   try {
@@ -79,13 +93,11 @@ class _CustomHttpOverrides extends HttpOverrides {
   }
 }
 
-class DHBHApp extends ConsumerWidget {
+class DHBHApp extends StatelessWidget {
   const DHBHApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(posProvider);
-
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'DHBH App',
       debugShowCheckedModeBanner: false,
@@ -112,7 +124,12 @@ class _AppGateState extends ConsumerState<_AppGate> {
   @override
   void initState() {
     super.initState();
-    ref.read(posProvider.notifier).checkSession();
+    // Defer so provider state isn't modified during the build phase.
+    // Riverpod 2.x throws "Tried to modify a provider while the widget tree
+    // was building" if a provider is changed inside initState/build.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(posProvider.notifier).checkSession();
+    });
   }
 
   @override
@@ -120,55 +137,46 @@ class _AppGateState extends ConsumerState<_AppGate> {
     final posState = ref.watch(posProvider);
     final connectivityState = ref.watch(connectivityProvider);
 
-    return connectivityState.when(
-      data: (isOnline) {
-        final screenContent = posState.currentUser != null
-            ? const MainAppScreen()
-            : const LoginScreen();
+    // Determine the screen to show
+    Widget screenContent;
 
-        return Stack(
-          children: [
-            screenContent,
-            // Offline banner
-            if (!isOnline)
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: SafeArea(
-                  child: Container(
-                    color: Colors.red.shade700,
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.cloud_off, color: Colors.white, size: 20),
-                        const SizedBox(width: 12),
-                        const Expanded(
-                          child: Text(
-                            'Tidak ada koneksi internet',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                        ),
-                      ],
+    if (posState.currentUser != null) {
+      screenContent = const MainAppScreen();
+    } else {
+      screenContent = const LoginScreen();
+    }
+
+    final isOnline = connectivityState.valueOrNull ?? false;
+
+    return Stack(
+      children: [
+        screenContent,
+        // Offline banner
+        if (!isOnline)
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              child: Container(
+                color: Colors.red.shade700,
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                child: Row(
+                  children: [
+                    const Icon(Icons.cloud_off, color: Colors.white, size: 20),
+                    const SizedBox(width: 12),
+                    const Expanded(
+                      child: Text(
+                        'Tidak ada koneksi internet',
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
-          ],
-        );
-      },
-      loading: () {
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        );
-      },
-      error: (error, stack) {
-        return Scaffold(
-          body: Center(
-            child: Text('Error: $error'),
+            ),
           ),
-        );
-      },
+      ],
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
@@ -44,8 +45,25 @@ class BluetoothService {
   BluetoothPrinterDevice? get connectedDevice => _connectedDevice;
   List<BluetoothPrinterDevice> get pairedDevices => List.unmodifiable(_pairedDevices);
 
+  /// Whether Bluetooth thermal printing is supported on this platform.
+  /// `flutter_bluetooth_serial` supports Android, iOS, macOS, and Linux —
+  /// NOT Windows desktop. On unsupported platforms the service becomes a
+  /// safe no-op so the rest of the app keeps working normally.
+  static bool get isSupported {
+    if (kIsWeb) return false;
+    return !Platform.isWindows;
+  }
+
   /// Initialize Bluetooth service
   Future<void> initialize() async {
+    if (!isSupported) {
+      debugPrint('[Bluetooth] ⚠️ Bluetooth printing is not supported on this platform (Windows)');
+      _isEnabled = false;
+      _isConnected = false;
+      _statusController.add(false);
+      return;
+    }
+
     try {
       _isEnabled = await _bluetooth.isEnabled ?? false;
       debugPrint('[Bluetooth] Initialized: enabled=$_isEnabled');
@@ -67,6 +85,11 @@ class BluetoothService {
 
   /// Get paired devices
   Future<void> getPairedDevices() async {
+    if (!isSupported) {
+      debugPrint('[Bluetooth] Bluetooth printing is not supported on this platform');
+      return;
+    }
+
     try {
       if (!_isEnabled) {
         debugPrint('[Bluetooth] Bluetooth not enabled');
@@ -91,6 +114,11 @@ class BluetoothService {
 
   /// Connect to device
   Future<bool> connect(String deviceAddress) async {
+    if (!isSupported) {
+      debugPrint('[Bluetooth] Bluetooth printing is not supported on this platform');
+      return false;
+    }
+
     try {
       if (_isConnected) {
         await disconnect();
@@ -144,7 +172,7 @@ class BluetoothService {
   /// Send data to connected device
   Future<bool> sendData(List<int> data) async {
     try {
-      if (!_isConnected || _connection == null) {
+      if (!isSupported || !_isConnected || _connection == null) {
         debugPrint('[Bluetooth] Not connected');
         return false;
       }
@@ -162,6 +190,11 @@ class BluetoothService {
 
   /// Enable Bluetooth
   Future<void> enableBluetooth() async {
+    if (!isSupported) {
+      debugPrint('[Bluetooth] Bluetooth printing is not supported on this platform');
+      return;
+    }
+
     try {
       await _bluetooth.requestEnable();
       debugPrint('[Bluetooth] ✓ Bluetooth enabled');
