@@ -3,6 +3,7 @@
 > **Sumber data:** Live query ke Supabase via Management API (PostgREST / SQL) — *project `jiunlvlcwsntjbyybszd`*
 > **Tanggal ekstraksi:** 2026-08-14 · **Update terakhir:** 2026-08-15 (kolom `daily_summaries.total_transfer` + fungsi `generate_daily_summary` ditulis ulang) · **Status project:** `ACTIVE_HEALTHY`
 > **Dokumen ini adalah referensi skema database AKTUAL** di Supabase (bukan inferensi dari kode).
+> **Android Branch:** 2026-08-15 — Optimasi untuk tablet Android (2GB RAM, 1280x800) tidak memerlukan perubahan database.
 
 ---
 

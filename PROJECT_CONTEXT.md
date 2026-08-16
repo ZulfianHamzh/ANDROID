@@ -14,8 +14,9 @@
 - **Current Status:** **MVP / Active Development** — Core POS flow is functional. The v3.0 simplification removed the offline-first architecture; the app is now **online-only** (Supabase is the single source of truth, SQLite is used for manual backup only).
 - **Per-branch pricing (v3.x feature):** ✅ **IMPLEMENTED** in Flutter (see §4a) — the previous "NOT implemented" note in older revisions is **stale**.
 - **Windows desktop is the primary target** — full Windows printing support exists via the `printing` package (see §4c).
+- **Android tablet support** — Optimized for 1280x800 resolution tablets with 2GB RAM (see §2.1 and §4d). Includes memory management, responsive UI scaling, and Android-specific configurations.
 - **Package ID:** `com.dhbh.dhbh_app`
-- **Version:** `1.0.0+1`
+- **Version:** `1.0.0+1` (Windows), `1.1.0+1` (Android branch)
 - **Supabase Project:** `jiunlvlcwsntjbyybszd.supabase.co`
 
 ---
@@ -32,9 +33,11 @@
 | Android Build | Gradle (Kotlin DSL) | AGP `8.11.1`, Kotlin `2.2.20` |
 | iOS | Swift (SceneDelegate) | — |
 | **Windows Desktop** | CMake + MSVC (**primary target**) | `flutter build windows` |
+| **Android Tablet** | Optimized for 1280x800, 2GB RAM | `flutter build apk --release` |
 | Linux / macOS / Web | Flutter desktop/web scaffolds present | — |
 
 > The project contains full platform folders: `android/`, `ios/`, `windows/`, `linux/`, `macos/`, `web/`.
+> **Android tablet optimizations** are in the `android-branch` with memory management, responsive UI scaling (800px breakpoint), and hardware acceleration.
 
 ### Database & ORM
 
@@ -303,6 +306,39 @@ enum UserRole { admin, kasir }                                       // NO karya
 ```
 
 > **DB nuance:** `payment_method` is persisted as the enum `.name` (`cash`, `transfer`, `qris`) and stored in the `transactions.payment_method` `text` column, guarded by CHECK constraint allowing `cash`/`transfer`/`qris`. Legacy values `debit`/`credit`/`e_wallet` were migrated on 2026-08-14 (`debit`/`credit` → `transfer`, `e_wallet` → `qris`).
+
+---
+
+## 4d. 📱 Android Tablet Optimizations (android-branch)
+
+**Target Device:** Android tablets with 2GB RAM and 1280x800 screen resolution.
+
+### Key Optimizations
+
+| Area | Implementation | Benefit |
+|---|---|---|
+| **UI Scaling** | Responsive breakpoint at 800px, increased font/icon/button sizes | Better touch targets and readability on tablet screens |
+| **Memory Management** | Memory pressure handlers, `largeHeap` flag, image cache clearing | Prevents OOM crashes on 2GB RAM devices |
+| **Layout Optimization** | Tablet-specific layout with reduced padding, dense mode | Maximum content display on 1280x800 resolution |
+| **Android Config** | Hardware acceleration, `resizeableActivity`, leanback support | Multi-window support and better performance |
+| **Resource Limiting** | Density restrictions (hdpi), limited resource variants | Reduced APK size and memory footprint |
+| **Performance** | Limited image cache, simplified skeleton animations | Smoother UI on low-RAM devices |
+
+### Files Modified
+
+- `lib/utils/responsive_utils.dart` — Adjusted breakpoints and sizing for 1280x800
+- `android/app/src/main/AndroidManifest.xml` — Added `largeHeap`, hardware acceleration, leanback
+- `android/app/build.gradle.kts` — Resource density restrictions
+- `lib/main.dart` — Memory pressure handlers
+- `lib/screens/login_screen.dart`, `lib/screens/pos_screen.dart` — Tablet-specific layouts
+
+### Build Command
+
+```bash
+flutter build apk --release
+```
+
+Output: `build/app/outputs/flutter-apk/app-release.apk`
 
 ---
 

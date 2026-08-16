@@ -10,7 +10,15 @@ Workspace untuk **DHBH Pos** (`dhbh_app`) — aplikasi Point of Sale Flutter unt
 Online-only (Supabase `jiunlvlcwsntjbyybszd` sebagai single source of truth; SQLite hanya untuk backup manual).
 Windows desktop adalah target utama (printing via `printing` package); Android/iOS juga didukung (Bluetooth thermal printer).
 
-## Recent Changes
+## Recent Updates
+
+- **2026-08-15 — Android Branch: Optimasi untuk tablet Android (2GB RAM, 1280x800)**:
+  1) **UI Scaling**: Breakpoint responsive disesuaikan (800px untuk deteksi tablet), peningkatan ukuran font/icon/tombol untuk target sentuhan yang lebih baik pada layar tablet.
+  2) **Memory Management**: Penambahan handler memory pressure, flag `largeHeap` di AndroidManifest, dan pembersihan cache gambar saat tekanan memori tinggi.
+  3) **Layout Optimization**: Layout khusus tablet dengan padding yang dikurangi dan mode dense untuk menampilkan konten maksimal pada resolusi 1280x800.
+  4) **Android Config**: Hardware acceleration diaktifkan, `resizeableActivity` untuk multi-window support, dukungan leanback launcher, dan pembatasan resource density (hdpi) untuk mengoptimalkan penggunaan RAM.
+  5) **Performance**: Image cache dibatasi, animasi skeleton disederhanakan, dan state management dioptimalkan untuk perangkat dengan RAM terbatas.
+  - Branch `android-branch` telah dibuat dan dipublish ke GitHub sebagai dasar pengembangan platform Android tablet.
 
 - **2026-08-15 — Diskon (persen/nominal) + filter cabang + Hold Order multi-pelanggan**:
   1) **DB (via Management API)**: `transactions` + `discount integer NOT NULL DEFAULT 0` (total_amount = GRAND TOTAL setelah diskon; getter `subtotal = totalAmount + discount`); `held_orders` + `customers jsonb NOT NULL DEFAULT '[]'` (array nama) + backfill dari customer_name. CATATAN: tabel `transactions` & `held_orders` saat itu KOSONG (0 baris) — data sudah kosong sebelum sesi (bukan akibat migrasi; branches=2 = koneksi benar).
