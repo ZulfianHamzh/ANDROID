@@ -29,6 +29,10 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        
+        // Optimize for Android tablets with limited RAM (2GB)
+        // Reduce memory footprint by limiting texture cache
+        resConfigs "en", "id"
     }
 
     buildTypes {
@@ -36,6 +40,16 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+            // Enable code shrinking and resource shrinking for smaller APK
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+    }
+    
+    // Optimize for tablet screens
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
 }

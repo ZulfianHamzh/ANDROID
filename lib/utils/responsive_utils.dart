@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-/// Responsive utilities untuk 800x1280 (16:10) 8-inch tablet @ 189 ppi
+/// Responsive utilities untuk Android tablet 1280x800 (16:10) dengan 2GB RAM
+/// Baseline: 800px width untuk landscape, 1280px untuk landscape full
 class ResponsiveUtils {
   static late MediaQueryData _mediaQuery;
   static late Size _screenSize;
-
+  
   static void init(BuildContext context) {
     _mediaQuery = MediaQuery.of(context);
     _screenSize = _mediaQuery.size;
@@ -14,8 +15,9 @@ class ResponsiveUtils {
   static double get screenHeight => _screenSize.height;
   static double get aspectRatio => _screenSize.aspectRatio;
 
-  /// Scale terhadap 800px baseline — di device 800px = 1.0 (no-op)
-  static double get scaleFactor => (screenWidth / 800).clamp(0.75, 1.25);
+  /// Scale terhadap 800px baseline — di device 800px = 1.0
+  /// Clamp untuk mencegah scaling terlalu ekstrem di tablet 2GB
+  static double get scaleFactor => (screenWidth / 800).clamp(0.85, 1.1);
 
   // ── Padding ──────────────────────────────────────────────
   static EdgeInsets get paddingSmall =>
@@ -42,47 +44,48 @@ class ResponsiveUtils {
       EdgeInsets.symmetric(vertical: 16 * scaleFactor);
 
   // ── Font ─────────────────────────────────────────────────
-  static double get fontXSmall  => 10.0;
-  static double get fontSmall   => 11.0;
-  static double get fontNormal  => 13.0;
-  static double get fontLarge   => 14.0;
-  static double get fontXLarge  => 16.0;
-  static double get font2XLarge => 18.0;
-  static double get font3XLarge => 22.0;
-  static double get fontDisplay => 26.0;
+  /// Ukuran font sedikit lebih besar untuk keterbacaan di tablet
+  static double get fontXSmall  => 11.0;
+  static double get fontSmall   => 12.0;
+  static double get fontNormal  => 14.0;
+  static double get fontLarge   => 15.0;
+  static double get fontXLarge  => 17.0;
+  static double get font2XLarge => 19.0;
+  static double get font3XLarge => 23.0;
+  static double get fontDisplay => 28.0;
 
   // ── Icon ─────────────────────────────────────────────────
-  static double get iconXSmall  => 14.0;
-  static double get iconSmall   => 18.0;
-  static double get iconNormal  => 22.0;
-  static double get iconLarge   => 28.0;
-  static double get iconXLarge  => 40.0;
-  static double get icon2XLarge => 52.0;
+  static double get iconXSmall  => 16.0;
+  static double get iconSmall   => 20.0;
+  static double get iconNormal  => 24.0;
+  static double get iconLarge   => 30.0;
+  static double get iconXLarge  => 42.0;
+  static double get icon2XLarge => 56.0;
 
   // ── Button ───────────────────────────────────────────────
-  static double get buttonHeightSmall  => 32.0;
-  static double get buttonHeightNormal => 40.0;
-  static double get buttonHeightLarge  => 48.0;
+  static double get buttonHeightSmall  => 36.0;
+  static double get buttonHeightNormal => 44.0;
+  static double get buttonHeightLarge  => 52.0;
 
   // ── Border radius ────────────────────────────────────────
-  static double get radiusSmall  => 4.0;
-  static double get radiusNormal => 8.0;
-  static double get radiusMedium => 10.0;
-  static double get radiusLarge  => 14.0;
+  static double get radiusSmall  => 5.0;
+  static double get radiusNormal => 9.0;
+  static double get radiusMedium => 11.0;
+  static double get radiusLarge  => 15.0;
 
   // ── Spacing ──────────────────────────────────────────────
-  static double get spaceXSmall => 4.0;
-  static double get spaceSmall  => 8.0;
-  static double get spaceNormal => 12.0;
-  static double get spaceLarge  => 20.0;
-  static double get spaceXLarge => 28.0;
+  static double get spaceXSmall => 5.0;
+  static double get spaceSmall  => 9.0;
+  static double get spaceNormal => 13.0;
+  static double get spaceLarge  => 21.0;
+  static double get spaceXLarge => 29.0;
 
   // ── Tinggi widget umum ───────────────────────────────────
-  static double get appBarHeight        => 60.0;
-  static double get extendedAppBarHeight => 100.0;
-  static double get tabBarHeight        => 44.0;
-  static double get toolbarHeight       => 60.0;
-  static double get bottomNavBarHeight  => 58.0;
+  static double get appBarHeight        => 64.0;
+  static double get extendedAppBarHeight => 104.0;
+  static double get tabBarHeight        => 48.0;
+  static double get toolbarHeight       => 64.0;
+  static double get bottomNavBarHeight  => 62.0;
 
   // ── Orientasi ────────────────────────────────────────────
   static bool get isPortrait  => screenHeight > screenWidth;
@@ -96,12 +99,13 @@ class ResponsiveUtils {
     return (screenWidth * 0.9).clamp(minWidth, maxWidth);
   }
 
+  /// Grid count optimized untuk tablet 1280x800
   static int getGridCount({
     int minItemsPerRow = 2,
     int maxItemsPerRow = 4,
   }) {
     if (screenWidth < 600) return minItemsPerRow;
-    if (screenWidth < 1000) return 3;
+    if (screenWidth < 900) return 3;
     return maxItemsPerRow;
   }
 

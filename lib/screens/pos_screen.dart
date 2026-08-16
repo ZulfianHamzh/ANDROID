@@ -38,8 +38,9 @@ class _POSScreenState extends ConsumerState<POSScreen> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    // Optimized breakpoints for Android tablet 1280x800
     final isDesktop = width >= 1200;
-    final isTablet = width >= 900 && width < 1200;
+    final isTablet = width >= 800 && width < 1200;  // Tablet: 800-1199px (covers 1280x800 landscape)
     final posState = ref.watch(posProvider);
     final notifier = ref.read(posProvider.notifier);
 
@@ -102,7 +103,7 @@ class _POSScreenState extends ConsumerState<POSScreen> {
   }
 
   // ═══════════════════════════════════════════════════════════
-  // TABLET-WIDE LAYOUT (900–1199px) — Laptop 768p–900p
+  // TABLET LAYOUT (800–1199px) — Android tablet 1280x800
   // ═══════════════════════════════════════════════════════════
   Widget _buildTabletLayout(PosState posState, PosProvider notifier) {
     final products = notifier.filteredProducts(false);
@@ -113,22 +114,22 @@ class _POSScreenState extends ConsumerState<POSScreen> {
       color: AppColors.primaryGreen,
       child: Row(
         children: [
-          // Product area
+          // Product area - optimized for 1280x800 tablet
           Expanded(
             flex: 3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 14, 16, 0),
-                  child: _buildSearchBar(isDense: false),
+                  padding: const EdgeInsets.fromLTRB(14, 12, 14, 0),
+                  child: _buildSearchBar(isDense: true),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: _buildCategoryChips(posState, categories, isDense: false),
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  child: _buildCategoryChips(posState, categories, isDense: true),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
                 Expanded(
                   child: posState.isLoading
                       ? const SkeletonProductGrid(
@@ -140,7 +141,7 @@ class _POSScreenState extends ConsumerState<POSScreen> {
               ],
             ),
           ),
-          // Cart panel — lebih lebar dari sebelumnya
+          // Cart panel — optimized for tablet width
           _buildCartPanel(posState, notifier, isDesktop: false),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -17,6 +18,15 @@ void main() async {
   
   // CRITICAL: Configure global HTTP client with aggressive timeouts
   HttpOverrides.global = _CustomHttpOverrides();
+
+  // Optimize for Android tablets with limited RAM (2GB)
+  // Handle memory pressure to prevent OOM crashes
+  SystemChannels.memoryPressure.setMessageHandler((dynamic message) async {
+    debugPrint('[DHBH] Memory pressure received, clearing caches');
+    // Clear image cache
+    PaintingBinding.instance.imageCache.clear();
+    PaintingBinding.instance.imageCache.clearLiveImages();
+  });
   
   // Set up error handling for uncaught exceptions — log to console AND to a
   // file (%TEMP%\dhbh_flutter_errors.log) so layout/overflow errors can be
