@@ -17,7 +17,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = "17"
     }
 
     defaultConfig {
@@ -32,7 +32,9 @@ android {
         
         // Optimize for Android tablets with limited RAM (2GB)
         // Reduce memory footprint by limiting texture cache
-        resConfigs "en", "id"
+        androidResources {
+            localeFilters += listOf("en", "id")
+        }
     }
 
     buildTypes {
